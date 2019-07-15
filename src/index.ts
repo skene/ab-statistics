@@ -51,8 +51,6 @@ export class ABTest {
 
   /**
    * Calculate standard error difference of current data
-   * @param {number} c conversion rate
-   * @param {number} n impressions
    * @returns {boolean}
    */
   public standardErrorDifference(): number {
