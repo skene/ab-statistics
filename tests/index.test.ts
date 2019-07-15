@@ -28,4 +28,18 @@ describe("AB Testing Statistics", () => {
 
     expect(parseFloat(pValue)).toEqual(0.0393);
   });
+
+  it("should calculate standard error of diff", () => {
+    const Test = new ABTest(data);
+    const seDiff = Test.standardErrorDifference().toFixed(6);
+
+    expect(parseFloat(seDiff)).toEqual(0.000711);
+  });
+
+  it("should calculate statistical significance", () => {
+    const Test = new ABTest(data);
+    const isSignificant = Test.isSignificant();
+
+    expect(isSignificant).toEqual(true);
+  });
 });
