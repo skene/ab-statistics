@@ -1,8 +1,14 @@
 {
   "name": "ab-statistics",
   "version": "1.0.0",
+  "author": "Spencer Skeen",
+  "description": "Simple library for calculating statistical significance for A/B Testing.",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skene/ab-statistics"
+  },
   "scripts": {
     "build": "ncc build src/index.ts -o dist",
     "test": "jest",
