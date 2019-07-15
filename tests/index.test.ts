@@ -1,6 +1,8 @@
 import { ABTest, Hypothesis } from "../src";
 
 const data = {
+  hypothesis: Hypothesis.oneSided,
+  confidence: 0.95,
   control: [1600, 80000],
   variation: [1700, 80000]
 };

@@ -11,10 +11,10 @@ npm install --save ab-statistics
 ```
 
 ```js
-import { ABTest } from "ab-statistics";
+import { ABTest, Hypothesis } from "ab-statistics";
 
 const data = {
-  hypothesis: "one-sided",
+  hypothesis: Hypothesis.oneSided,
   confidence: 0.95,
   control: [1600, 80000], // [conversions, impressions]
   variation: [1700, 80000]
