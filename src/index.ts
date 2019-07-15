@@ -39,7 +39,7 @@ export class ABTest {
 
   /**
    * Calculate p-value
-   * @returns {boolean}
+   * @returns {number}
    */
   public pValue(): number {
     const zScore = this.zScore();
@@ -51,7 +51,7 @@ export class ABTest {
 
   /**
    * Calculate standard error difference of current data
-   * @returns {boolean}
+   * @returns {number}
    */
   public standardErrorDifference(): number {
     const conversionRates = this.conversionRates();
@@ -82,7 +82,7 @@ export class ABTest {
    * Calculate standard error for given variation
    * @param {number} c conversion rate
    * @param {number} n impressions
-   * @returns {boolean}
+   * @returns {number}
    */
   private standardError(c: number, n: number): number {
     return Math.sqrt((c * (1 - c)) / n);
