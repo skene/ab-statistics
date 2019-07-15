@@ -1,6 +1,6 @@
 {
   "name": "ab-statistics",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Spencer Skeen",
   "description": "Simple library for calculating statistical significance for A/B Testing.",
   "main": "index.js",
