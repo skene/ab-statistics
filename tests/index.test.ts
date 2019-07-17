@@ -1,45 +1,81 @@
 import { ABTest } from "../src";
 
-const data = {
-  confidence: 0.95,
-  control: [1600, 80000],
-  variation: [1700, 80000]
+interface VariationDocument {
+  name: string;
+  conversions: number;
+  impressions: number;
+}
+
+const control: VariationDocument = {
+  name: "Control Variation",
+  conversions: 1600,
+  impressions: 80000
 };
+
+const variations: VariationDocument[] = [
+  {
+    name: "Variation A",
+    conversions: 1500,
+    impressions: 80000
+  },
+  {
+    name: "Variation B",
+    conversions: 1700,
+    impressions: 80000
+  },
+  {
+    name: "Variation C",
+    conversions: 1800,
+    impressions: 80000
+  }
+];
 
 describe("AB Testing Statistics", () => {
   it("should have default properties", () => {
-    const Test = new ABTest({});
+    const Test = new ABTest<VariationDocument>({});
 
     expect(Test.confidence).toEqual(0.95);
     expect(Test.control).toEqual(null);
-    expect(Test.variation).toEqual(null);
+    expect(Test.variations).toEqual([]);
   });
 
-  it("should calculate z-score", () => {
-    const Test = new ABTest(data);
-    const zScore = Test.zScore().toFixed(4);
+  it("should calculate conversion rate static method", () => {
+    const converstionRate = ABTest.conversionRate(
+      control.conversions,
+      control.impressions
+    );
 
-    expect(parseFloat(zScore)).toEqual(1.759);
+    expect(converstionRate).toEqual(0.02);
   });
 
-  it("should calculate p-value", () => {
-    const Test = new ABTest(data);
-    const pValue = Test.pValue().toFixed(4);
+  it("should calculate standard error static method", () => {
+    const converstionRate = ABTest.conversionRate(
+      control.conversions,
+      control.impressions
+    );
 
-    expect(parseFloat(pValue)).toEqual(0.0393);
+    const standardError = ABTest.standardError(
+      converstionRate,
+      control.impressions
+    );
+
+    expect(parseFloat(standardError.toFixed(6))).toEqual(0.000495);
   });
 
-  it("should calculate standard error of diff", () => {
-    const Test = new ABTest(data);
-    const seDiff = Test.standardErrorDifference().toFixed(6);
+  it("should filter significant variations", () => {
+    const Test = new ABTest<VariationDocument>({ control, variations });
+    const Test2 = new ABTest<VariationDocument>({
+      control,
+      variations: [variations[0]]
+    });
 
-    expect(parseFloat(seDiff)).toEqual(0.000711);
+    expect(Test.filterSignificant()).toHaveLength(2);
+    expect(Test2.filterSignificant()).toEqual(null);
   });
 
-  it("should calculate statistical significance", () => {
-    const Test = new ABTest(data);
-    const isSignificant = Test.isSignificant();
+  it("should calculate variation with highest significance", () => {
+    const Test = new ABTest<VariationDocument>({ control, variations });
 
-    expect(isSignificant).toEqual(true);
+    expect(Test.highestSignificance()).toMatchObject(variations[2]);
   });
 });
