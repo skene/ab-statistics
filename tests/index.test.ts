@@ -1,7 +1,6 @@
-import { ABTest, Hypothesis } from "../src";
+import { ABTest } from "../src";
 
 const data = {
-  hypothesis: Hypothesis.oneSided,
   confidence: 0.95,
   control: [1600, 80000],
   variation: [1700, 80000]
@@ -11,7 +10,6 @@ describe("AB Testing Statistics", () => {
   it("should have default properties", () => {
     const Test = new ABTest({});
 
-    expect(Test.hypothesis).toEqual(Hypothesis.oneSided);
     expect(Test.confidence).toEqual(0.95);
     expect(Test.control).toEqual(null);
     expect(Test.variation).toEqual(null);

@@ -1,27 +1,19 @@
 import { Gaussian } from "ts-gaussian";
 
-export enum Hypothesis {
-  oneSided = "one-sided"
-}
-
 export class ABTest {
-  public hypothesis: Hypothesis;
   public confidence: number;
   public control: number[] | null; // [conversions, impressions]
   public variation: number[] | null; // [conversions, impressions]
 
   constructor({
-    hypothesis = Hypothesis.oneSided,
     confidence = 0.95,
     control = null,
     variation = null
   }: {
-    hypothesis?: Hypothesis;
     confidence?: number;
     control?: number[] | null;
     variation?: number[] | null;
   }) {
-    this.hypothesis = hypothesis;
     this.confidence = confidence;
     this.control = control;
     this.variation = variation;
