@@ -12,7 +12,8 @@
   "scripts": {
     "build": "ncc build src/index.ts -o dist",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "publish": "npm publish"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
