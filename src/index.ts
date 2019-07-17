@@ -13,9 +13,9 @@ export interface ABTestConfig<T> {
 }
 
 export class ABTest<T extends ABTestVariant> implements ABTestConfig<T> {
-  public confidence;
-  public control;
-  public variations;
+  readonly confidence;
+  readonly control;
+  readonly variations;
 
   constructor({
     confidence = 0.95,
