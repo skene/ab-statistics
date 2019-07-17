@@ -1,6 +1,6 @@
 ## AB Statistics
 
-`ab-statistics` is a simple library for calculating statistical significance for A/B Tests.
+`ab-statistics` is a simple library for handling statistical significance with mulitple variations in A/B testing.
 
 ## Quick Start
 
@@ -11,18 +11,58 @@ npm install --save ab-statistics
 ```
 
 ```js
-import { ABTest, Hypothesis } from "ab-statistics";
+import { ABTest } from "ab-statistics";
 
-const data = {
-  hypothesis: Hypothesis.oneSided,
-  confidence: 0.95,
-  control: [1600, 80000], // [conversions, impressions]
-  variation: [1700, 80000]
+interface VariationDocument {
+  name: string;
+  conversions: number;
+  impressions: number;
+}
+
+const control: VariationDocument = {
+  name: "Control Variation",
+  conversions: 1600,
+  impressions: 80000
 };
 
-const Test = new ABTest(data);
+const variations: VariationDocument[] = [
+  {
+    name: "Variation A",
+    conversions: 1500,
+    impressions: 80000
+  },
+  {
+    name: "Variation B",
+    conversions: 1700,
+    impressions: 80000
+  },
+  {
+    name: "Variation C",
+    conversions: 1800,
+    impressions: 80000
+  }
+];
 
-const zScore = Test.zScore(); // 1.759...
-const pValue = Test.pValue(); // 0.0393...
-const isSignificant = Test.isSignificant(); // true
+const Test = new ABTest()<VariationDocument>({ control, variations });
+
+const highestSignificance = Test.highestSignificance();
+// {
+//   name: "Variation C",
+//   conversions: 1800,
+//   impressions: 80000
+// }
+
+const significantVariations = Test.filterSignificant();
+// [
+//   {
+//     name: "Variation B",
+//     conversions: 1700,
+//     impressions: 80000
+//   },
+//   {
+//     name: "Variation C",
+//     conversions: 1800,
+//     impressions: 80000
+//   }
+// ]
 ```

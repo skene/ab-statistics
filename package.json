@@ -1,6 +1,6 @@
 {
   "name": "ab-statistics",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "author": "Spencer Skeen",
   "description": "Simple library for handling statistical significance with mulitple variations in an A/B test.",
   "main": "index.js",
